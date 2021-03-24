@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head><%include ../partials/head%></head>
+
+  <body>
+      <header><%include ../partials/header%> </header>
+    
+    <form
+      class="pure-form pure-form-aligned"
+      id="data"
+      name="data"
+      onsubmit="return validateForm()"
+      method="POST"
+      action="/results"
+    >
+      <div class="pure-control-group">
+        <label for="city">Choose a city:</label>
+        <select id="city" name="city">
+          <option value="lat=60.29414&lng=25.04099">Helsinki</option>
+          <option value="lat=65.012615&lng=25.471453">Oulu</option>
+          <option value="lat=62.89238&lng=27.67703">Kuopio</option>
+          <option value="lat=66.5000&lng=27.0288">Rovaniemi</option>
+        </select>
+      </div>
+      <div class="pure-control-group">
+        <label for="day">Pick the day:</label>
+        <input type="date" id="date" name="date" />
+      </div>
+      <div class="pure-controls">
+        <button type="submit" class="pure-button pure-button-primary" id="button">
+            Send
+        </button>
+      </div>
+    </form>
+
+    <footer><%include ../partials/footer%></footer>
+    <script>
+        function validateForm() {
+            var x = document.forms["data"]["date"].value;
+            if (x == "") {
+            alert("Data field must be filled out");
+        return false;
+  }
+} 
+    </script>
+  </body>
+</html>
