@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%include ../partials/head%>
-  </head>
-  <header><%include ../partials/header%></header>
+  
+    <head><%- include("../partials/head")%></head>
+
+    <body>
+        <header><%- include("../partials/header")%> </header>
   <body>
     <main>
       <div class="container">
@@ -14,6 +15,6 @@
       </div>
     </main>
 
-    <footer><%include ../partials/footer%></footer>
+    <footer><%- include("../partials/footer")%></footer>
   </body>
 </html>
