@@ -1,6 +1,7 @@
 const request = require("request");
 var express = require("express");
 var app = express();
+var axios = require("axios");
 
 app.set("view engine", "ejs");
 var bodyParser = require("body-parser");
@@ -12,35 +13,28 @@ app.use(
   })
 );
 
-app.use(express.static("./"));
-
 var answer = require("./sunset.json");
-var url =
-  "https://api.sunrise-sunset.org/json?lat=60.29414&lng=25.04099&date=today";
+
+app.use(express.static("./"));
 
 app.get("/", function (req, res) {
   res.render("pages/index");
-});
-
-request(url, { json: true }, (err, res, body) => {
-  if (err) {
-    return console.log(err);
-  } else answer = body;
 });
 
 app.post("/results", function (req, res) {
   var city = req.body.city;
   var date = req.body.date;
   var url = "https://api.sunrise-sunset.org/json?" + city + "&date=" + date;
-
-  request(url, { json: true }, (err, res, body) => {
-    if (err) {
-      return console.log(err);
-    } else answer = body;
-  });
-
-  res.render("pages/results", answer);
-  console.log(answer);
+  const promise = axios
+    .get(url)
+    .then((response) => {
+      answer = response.data;
+      console.log(answer);
+    })
+    .finally(() => {
+      res.render("pages/results", answer);
+      console.log(promise);
+    });
 });
 
 app.listen(PORT);
